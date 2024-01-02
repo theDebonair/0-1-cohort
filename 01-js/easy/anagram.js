@@ -5,7 +5,9 @@
 */
 
 function isAnagram(str1, str2) {
-
+  return str1.toLowerCase().replace(" ", "").split("").sort().join("") === str2.toLowerCase().replace(" ", "").split("").sort().join("");
 }
+
+isAnagram("spar", "spar");
 
 module.exports = isAnagram;
