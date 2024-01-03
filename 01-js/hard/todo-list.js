@@ -11,7 +11,14 @@
 */
 
 class Todo {
+  todoMemo = [];
 
+  add = todo => this.todoMemo.push(todo);
+  remove = indexOfTodo => this.todoMemo.splice(indexOfTodo, 1);
+  update = (indexOfTodo, todo) => (indexOfTodo < this.todoMemo.length) && (this.todoMemo[indexOfTodo]=todo);
+  getAll = () => this.todoMemo;
+  get = indexOfTodo => (indexOfTodo < this.todoMemo.length) ? this.todoMemo[indexOfTodo] : null;
+  clear = () => this.todoMemo = [];
 }
 
 module.exports = Todo;

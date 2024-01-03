@@ -16,6 +16,42 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  result = 0;
+
+  add(number) {
+    this.result += number;
+  }
+
+  subtract(number) {
+    this.result -= number;
+  }
+  
+  multiply(number) {
+    this.result *= number;
+  }
+  
+  divide(number) {
+    if (!Boolean(number)) throw new Error("Infinity!");
+    else (this.result /= number);
+  }
+
+  clear() {
+    this.result = 0;
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  calculate(str) {
+    try {
+      this.result = eval(str.replace(/[,<>?;:'"\\|&^%$#@!`~_\s]/g,""));
+      if (this.result == Infinity) throw new Error("Infinity!");
+    } catch(error) {
+      throw new Error("Bad inputs!");
+    }
+  }
+}
 
 module.exports = Calculator;
