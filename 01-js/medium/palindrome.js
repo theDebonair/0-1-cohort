@@ -4,7 +4,10 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  str = str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s?]/g, "");
+
+  return str === str.split("").reverse().join("");
 }
+console.log(isPalindrome(' N a n ! ')); //returns true
 
 module.exports = isPalindrome;
