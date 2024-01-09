@@ -43,7 +43,58 @@
   const bodyParser = require('body-parser');
   
   const app = express();
-  
+  const port = 3000;
+
   app.use(bodyParser.json());
   
+  const todos = [];
+
+  app.get("/todos", (req, res) => {
+    res.status(200).json(todos);
+  });
+
+  app.get("/todos/:id", (req, res) => {
+    const todo = todos.find( obj => obj.id === parseInt(req.params.id));
+
+    todo ? res.status(200).json(todo) : res.status(404).send();
+  });
+
+  app.post("/todos", (req, res) => {
+    let todo = {
+      id: Math.floor(Math.random() * 1000000),
+      title: req.body.title,
+      completed: req.body.completed,
+      description: req.body.description
+    };
+
+    todos.push(todo);
+
+    res.status(201).json(todo);
+  });
+
+  app.put("/todos/:id", (req, res) => {
+    const index = todos.findIndex(obj => obj.id === parseInt(req.params.id));
+
+    if(index !== -1) {
+      todos[index].title = req.body.title;
+      todos[index].description = req.body.description;
+      todos[index].completed = req.body.completed;
+      res.json(todos[index]);
+    }
+    else res.status(404).send();
+  });
+
+  app.delete("/todos/:id", (req, res) => {
+    const index = todos.findIndex(obj => obj.id === parseInt(req.params.id));
+    index !== -1 ? todos.splice(index, 1) && res.status(200).send() : res.status(404).send();
+  });
+
+  app.use((req,res,next) => {
+    res.status(404).send();
+  })
+
+  // app.listen(port, () => {
+  //   console.log(`Listening at ${port}`);
+  // });
+
   module.exports = app;
